@@ -33,7 +33,7 @@ Este documento não será submetido a nenhuma revista com revisão por pares, mas s
 
 O processo de contágio e disseminação do vírus através da população é um processo dinâmico (ocorre no tempo) que, por princípio, obedece a uma lei de crescimento exponencial.
 
-Isto ocorre por que uma pessoa infectada pode transmitir o vírus a diversas outras pessoas, que por sua vez transmitirão o vírus a outras tantas pessoas. Se, em média, um infectado transmitir o vírus a 2 pessoas por dia, e essas 2 a outras 2 pessoas por dia, e assim por diante, em 10 dias serão $1.024$ infectados; em 20 dias, serão $1.048.576$; em 30 dias, mais de $1$ bilhão.
+Isto ocorre por que uma pessoa infectada pode transmitir o vírus a diversas outras pessoas, que por sua vez transmitirão o vírus a outras tantas pessoas. Se um infectado transmitir o vírus a 2 pessoas por dia, e essas 2 a outras 2 pessoas por dia, e assim por diante, em 10 dias serão $1.024$ infectados; em 20 dias, serão $1.048.576$; em 30 dias, mais de $1$ bilhão.
 
 O tamanho total da epidemia é limitado superiormente pelo tamanho da população (não pode haver mais infectados do que pessoas). A existência deste limite superior garante que eventualmente o processo chegará ao fim; no pior caso, isto ocorrerá quando todos houverem se contaminado e adquirido a imunidade (se existir) ou se contaminado e morrido.
 
@@ -98,13 +98,13 @@ Outra possibilidade é a comparação de estimativas diretas de $\alpha$; estas est
 
 Por outro lado, o modelo \ref{eq:1} não descreve bem a evolução de uma pandemia concreta; segundo este modelo, se $\alpha > 1$ a pandemia crescerá indefinidamente, o que não é possível pelo tamanho finito da população. O mais correto, portanto, é aumentar este modelo e torná-lo mais preciso.
 
-Em epidemiologia isto costuma ser feito através de modelos compartimentados do tipo \textit{SIR} ou \textit{SEIR}. Estes modelos dividem a população total em subgrupos: \textit{S}uscetíveis, \textit{E}xpostos, \textit{I}nfectados e \textit{R}ecuperados (os mortos são contabilizados como recuperados, no sentido de não poderem mais se tornar vetores da doença), e consideram que o tamanho $N$ da população total é fixo e dado por $N = S + E + I + R$\footnote{Há outros modelos compartimentados que fazem divisões mais detalhadas, mas a discussão de toda esta classe de modelos vai além do escopo deste texto.}. Estes modelos incluem diversos outros parâmetros além de $\alpha$ e $I_0$ para descrever a dinâmica temporal entre os grupos (suscetíveis se tornar expostos com uma certa velocidade, expostos tornam-se infectados com uma certa probabilidade, e infectados recuperam-se após um certo tempo), e os valores estimados destes parâmetros podem ser usados como métricas de avaliação e acompanhamento.
+Em epidemiologia isto costuma ser feito através de modelos compartimentados do tipo \textit{SIR} ou \textit{SEIR}. Estes modelos dividem a população total em subgrupos: \textit{S}uscetíveis, \textit{E}xpostos, \textit{I}nfectados e \textit{R}ecuperados (os mortos são contabilizados como recuperados, no sentido de não poderem mais se tornar vetores da doença), e consideram que o tamanho $N$ da população total é fixo e dado por $N = S + E + I + R$\footnote{Há outros modelos compartimentados que fazem divisões mais detalhadas, mas a discussão de toda esta classe de modelos vai além do escopo deste texto.}. Estes modelos incluem diversos outros parâmetros além de $\alpha$ e $I_0$ para descrever a dinâmica temporal entre os grupos (suscetíveis se tornam expostos com uma certa velocidade, expostos tornam-se infectados com uma certa probabilidade, e infectados recuperam-se após um certo tempo), e os valores estimados destes parâmetros podem ser usados como métricas de avaliação e acompanhamento.
 
 Algumas métricas são inaceitáveis. Por exemplo, o número de novos casos ou de mortes em um período de tempo não é uma informação suficiente, pois dois países com números iguais de novos casos podem estar vivendo realidades muito diferentes. $100$ casos a mais num país com $1000$ casos atualmente confirmados representa um contexto bem diferente de $100$ casos a mais num país com $10$ casos atualmente confirmados.
 
 A métrica mais simples aceitável é o fator de crescimento $I_{t+1} / I_t$, que representa uma estimativa do valor de $\alpha$ (assumindo sem perda de generalidade que $I_0 = 1$) no modelo \ref{eq:1}. Este valor, conforme varia no tempo, agrega as consequências de todas as outras dinâmicas presentes no modelo mais completo. Por exemplo, no momento em que for detectada uma diminuição importante nos valores diários estimados desta taxa, poderemos acreditar que o processo se aproxima do fim, e / ou que as medidas preventivas estão surtindo efeito.
 
-Métricas mais complexas exigem um esforço computacional que nem sempre estará à disposição dos interessados em acompanhar a situação. Quando possível, porém, devem ser preferidos, desde que o modelo utilizado na sua estimação seja claramente exposto.
+Métricas mais complexas exigem um esforço computacional que nem sempre estará à disposição dos interessados em acompanhar a situação. Quando possível, porém, devem ser preferidas, desde que o modelo utilizado na sua estimação seja claramente exposto.
 
 É importante ressaltar, porém, que toda métrica calculada a partir do número de casos está necessariamente sujeita à incerteza, pois o processo de rastreamento, testagem e contabilização de casos está sujeito a falhas e imprecisões.
 
@@ -162,7 +162,7 @@ A estrutura e organização social de um país podem ser decisivas na determinação 
 
 Comparar países com estruturas ou organizações sociais muito diferentes (Alemanha e Brasil, por exemplo, ou Brasil e China) é um procedimento complexo. É preciso considerar o peso relativo das semelhanças (o fato de ser o mesmo vírus, e outras que pode haver) e diferenças entre os países para avaliar criticamente a qualidade de uma comparação deste tipo.
 
-Novamente, é possível em tese mitigar os efeitos dessa diferença usando as ferramentas adequadas de análise. Estas ferramentas, porém, exigirão maior tempo de análise e processamento, e em situações normais os resultados assim obtidos devem passar pelo crivo da análise por pares antes de ir à público.
+Novamente, é possível em tese mitigar os efeitos dessa diferença usando as ferramentas adequadas de análise. Estas ferramentas, porém, exigirão maior tempo de análise e processamento, e em situações normais os resultados assim obtidos devem passar pelo crivo da revisão por pares antes de ir à público.
 
 \subsection{Conclusão}
 
@@ -170,7 +170,7 @@ O objetivo deste texto era abrir a discussão sobre métricas adequadas ao acompan
 
 De forma resumida, esta primeira versão propõe que a métrica mais adequada para acompanhamento da dinâmica é a taxa de crescimento diário do número de casos confirmados, $I_{t+1} / I_{t}$. A taxa de crescimento diário do número de mortes é também uma métrica adequada, que pode estar sujeita a menos fontes de erro do que a determinação do número de contaminados.
 
-Para avaliação das consequências da pandemia, é essencial considerar a diferença de infraestrutura dos países; a diferença entre as datas de início podem ser eliminadas por um processo de normalização, e outras diferenças como na pirâmide etária podem ter seu efeito mitigado na análise. O tamanho total das populações não impede as comparações, principalmente no início da pandemia e se consideramos que o processo de contágio é local.
+Para avaliação das consequências da pandemia, é essencial considerar a diferença de infraestrutura dos países; a diferença entre as datas de início podem ser eliminadas por um processo de normalização, e diferenças na pirâmide etária são importantes mas podem a princípio ter seu efeito de confundimento mitigado. O tamanho total das populações não impede as comparações, principalmente no início da pandemia e se consideramos que o processo de contágio é local.
 
 \bibliography{bibliografia}
 \bibliographystyle{apalike}
