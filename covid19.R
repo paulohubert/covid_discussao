@@ -49,7 +49,7 @@ data.labels = list(data.frame(pais = 'China', quarentine = 53,
   label = 'Quarentena começa em Wuhan',
   ymax = 100
 ),
-data.frame(pais = 'Brasil', quarentine = 27,
+data.frame(pais = 'Brasil', quarentine = 25,
   x =20,
   y = 1.5,
   label = 'Quarentena começa em São Paulo',
@@ -61,7 +61,7 @@ data.frame(pais = 'Itália', quarentine = 32,
   label = 'Quarentena em toda a Itália',
   ymax = 2.5
 ),
-data.frame(pais = 'EUA', quarentine = c(54, 60),
+data.frame(pais = 'EUA', quarentine = c(54, 62),
   x =c(45, 50),
   y = c(1.5, 1),
   label = c('Trump declara apoio à quarentena de 15 dias', 'Trump manifesta dúvidas sobre a quarentena'),
@@ -87,16 +87,16 @@ for(i in 1:length(paises)) {
     g + geom_line(lty = 'dashed') + geom_point() + xlab("Dias desde o primeiro caso") + ylab("Taxa de crescimento") +
       ggtitle(paste0(data.label$pais, '- crescimento diário dos casos confirmados'))+ 
       #geom_hline(yintercept = as.numeric((corona_global %>% filter(country == pais) %>% summarise(mean(growth, na.rm = T)))[2]), lty = 'dashed', color= 'red') +
-      geom_vline(xintercept = data.label$quarentine[1], color = 'blue')  +
+      geom_vline(xintercept = data.label$quarentine[1], color = 'blue', lty = 'dashed')  +
       geom_text(data = data.label, aes(x = x[1], y = y[1], label = label[1]), color = 'blue') +
-      geom_vline(xintercept = data.label$quarentine[2], color = 'blue') +
+      geom_vline(xintercept = data.label$quarentine[2], color = 'blue', lty = 'dashed') +
       geom_text(data = data.label, aes(x = x[2], y = y[2], label = label[2]), color = 'blue')  
   } else {
     g = ggplot(data = corona_global %>% filter(country == pais & growth < data.label$ymax[1]), aes(x = elapsed, y = growth))
     g + geom_line(lty = 'dashed') + geom_point() + xlab("Dias desde o primeiro caso") + ylab("Taxa de crescimento") +
       ggtitle(paste0(data.label$pais, '- crescimento diário dos casos confirmados'))+ 
       #geom_hline(yintercept = as.numeric((corona_global %>% filter(country == pais) %>% summarise(mean(growth, na.rm = T)))[2]), lty = 'dashed', color= 'red') +
-      geom_vline(xintercept = data.label$quarentine[1], color = 'blue')  +
+      geom_vline(xintercept = data.label$quarentine[1], color = 'blue', lty = 'dashed')  +
       geom_text(data = data.label, aes(x = x[1], y = y[1], label = label[1]), color = 'blue') 
   }      
   ggsave(paste0('confirmed_', pais, '.png'))
@@ -106,18 +106,18 @@ for(i in 1:length(paises)) {
     g + geom_line(lty = 'dashed') + geom_point() + xlab("Dias desde o primeiro caso") + ylab("Taxa de crescimento") +
       ggtitle(paste0(data.label$pais, '- crescimento das mortes'))+ 
       #geom_hline(yintercept = as.numeric((corona_global %>% filter(country == pais) %>% summarise(mean(growthd, na.rm = T)))[2]), lty = 'dashed', color= 'red') +
-      geom_vline(xintercept = data.label$quarentine[1], color = 'blue') +
-      geom_vline(xintercept = data.label$quarentine[2], color = 'blue')
+      geom_vline(xintercept = data.label$quarentine[1], color = 'blue', lty = 'dashed') +
+      geom_vline(xintercept = data.label$quarentine[2], color = 'blue', lty = 'dashed')
   } else {
     g = ggplot(data = corona_global %>% filter(country == pais & time > firstdeath), aes(x = elapsed, y = growthd))
     g + geom_line(lty = 'dashed') + geom_point() + xlab("Dias desde o primeiro caso") + ylab("Taxa de crescimento") +
       ggtitle(paste0(data.label$pais, '- crescimento das mortes')) + 
       #geom_hline(yintercept = as.numeric((corona_global %>% filter(country == pais) %>% summarise(mean(growthd, na.rm = T)))[2]), lty = 'dashed', color= 'red') +
-      geom_vline(xintercept = data.label$quarentine[1], color = 'blue')
+      geom_vline(xintercept = data.label$quarentine[1], color = 'blue', lty = 'dashed')
   }
   ggsave(paste0('dead_', pais, '.png'))
 }
 
-pais = 'Brazil'
+pais = 'United Kingdom'
 corona_global %>% filter(country == pais) %>% View()
 
