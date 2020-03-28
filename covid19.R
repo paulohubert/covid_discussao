@@ -5,28 +5,33 @@
 library(nCov2019)
 library(tidyverse)
 library(padr)
+library(lubridate)
 
-setwd('/home/paulo/Documents/dados/covid/')
+setwd('/home/paulo/Documents/dados/covid/relatório/')
 
 # Obtendo os dados históricos por país
-corona_global = load_nCov2019(lang = 'en') %>% pluck(3) %>% as_tibble()
-
-# Calculando o tempo desde o primeiro caso, preenchendo as datas faltantes
 corona_global = load_nCov2019(lang = "en") %>% 
   pluck(3) %>% 
   as_tibble() %>%
+  mutate(cum_dead = ifelse(country == "Brazil" & time == strptime('2020-03-19', format= '%Y-%m-%d'), 3, cum_dead)) %>%
+  mutate(cum_dead = ifelse(country == "Brazil" & time == strptime('2020-03-20', format= '%Y-%m-%d'), 7, cum_dead))  %>%
   group_by(country) %>%
   mutate(mindata = min(time)) %>%
   ungroup() %>%
   pad(interval = "day", by = "time", group = "country") %>%
   fill(cum_confirm, cum_heal, cum_dead) %>%
   transform(elapsed = as.numeric(time - mindata, units = "days"))
-  
-# Salva csv
-#write_csv(corona_global, '/home/paulo/Documents/dados/covid/global_25032020.csv')
 
-# Calculando o máximo de casos por país
-paises = corona_global %>% group_by(country) %>% summarise(maxcases = max(cum_confirm)) %>% filter(maxcases > 600) %>% select(country)
+# Data da primeira morte
+first_death = corona_global %>%
+  filter(cum_dead > 0) %>%
+  group_by(country) %>%
+  summarise(firstdeath = min(time) + 3)
+
+corona_global = corona_global %>% left_join(first_death, by = "country")
+
+corona_global %>% filter(country == 'Brazil') %>% View()
+
 paises = c('Italy', 'Spain', 'United States', 'China', 'Brazil')
 
 # Gráfico
@@ -97,14 +102,14 @@ for(i in 1:length(paises)) {
   ggsave(paste0('confirmed_', pais, '.png'))
   
   if(i == 4) {
-    g = ggplot(data = corona_global %>% filter(country == pais & cum_dead > 0), aes(x = elapsed, y = growthd))
+    g = ggplot(data = corona_global %>% filter(country == pais & time > firstdeath), aes(x = elapsed, y = growthd))
     g + geom_line(lty = 'dashed') + geom_point() + xlab("Dias desde o primeiro caso") + ylab("Taxa de crescimento") +
       ggtitle(paste0(data.label$pais, '- crescimento das mortes'))+ 
       #geom_hline(yintercept = as.numeric((corona_global %>% filter(country == pais) %>% summarise(mean(growthd, na.rm = T)))[2]), lty = 'dashed', color= 'red') +
       geom_vline(xintercept = data.label$quarentine[1], color = 'blue') +
       geom_vline(xintercept = data.label$quarentine[2], color = 'blue')
   } else {
-    g = ggplot(data = corona_global %>% filter(country == pais & cum_dead > 0), aes(x = elapsed, y = growthd))
+    g = ggplot(data = corona_global %>% filter(country == pais & time > firstdeath), aes(x = elapsed, y = growthd))
     g + geom_line(lty = 'dashed') + geom_point() + xlab("Dias desde o primeiro caso") + ylab("Taxa de crescimento") +
       ggtitle(paste0(data.label$pais, '- crescimento das mortes')) + 
       #geom_hline(yintercept = as.numeric((corona_global %>% filter(country == pais) %>% summarise(mean(growthd, na.rm = T)))[2]), lty = 'dashed', color= 'red') +
@@ -113,6 +118,6 @@ for(i in 1:length(paises)) {
   ggsave(paste0('dead_', pais, '.png'))
 }
 
-pais = 'United States'
+pais = 'Brazil'
 corona_global %>% filter(country == pais) %>% View()
 
