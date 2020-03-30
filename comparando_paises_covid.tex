@@ -9,82 +9,82 @@
 \usepackage{amsmath}
 
 
-\title{Métricas e fatores de variabilidade na avaliação de pandemias}
+\title{MÃ©tricas e fatores de variabilidade na avaliaÃ§Ã£o de pandemias}
 
 \author{Paulo Hubert$^1$}
-\date{$1$ Bacharel e mestre em Estatística pelo IME-USP, Doutor em Matemática Aplicada pelo IME-USP, Professor do Departamento de Tecnologia e Ciência de Dados da EAESP/FGV}
+\date{$1$ Bacharel e mestre em EstatÃ­stica pelo IME-USP, Doutor em MatemÃ¡tica Aplicada pelo IME-USP, Professor do Departamento de Tecnologia e CiÃªncia de Dados da EAESP/FGV}
 
 \begin{document}
 
 \maketitle
 %\newpage
 
-\section{Introdução}
+\section{IntroduÃ§Ã£o}
 
-Este documento pretende abrir uma discussão sobre o uso de dados e modelos para acompanhamento e comparação da disseminação do vírus SARS-CoV-1 entre diferentes regiões, países e momentos do tempo. 
+Este documento pretende abrir uma discussÃ£o sobre o uso de dados e modelos para acompanhamento e comparaÃ§Ã£o da disseminaÃ§Ã£o do vÃ­rus SARS-CoV-2 entre diferentes regiÃµes, paÃ­ses e momentos do tempo. 
 
-Entende-se que o acompanhamento da pandemia pode se dar com dois objetivos principais: estudar a dinâmica do processo de contágio (número de infectados ao longo do tempo) e estudar as consequências do processo (número de mortos, impacto na saúde pública, etc). É importante explicitar o objetivo da análise para entender quais as melhores métricas e quais as suas limitações.
+Entende-se que o acompanhamento da pandemia pode se dar com dois objetivos principais: estudar a dinÃ¢mica do processo de contÃ¡gio (nÃºmero de infectados ao longo do tempo) e estudar as consequÃªncias do processo (nÃºmero de mortos, impacto na saÃºde pÃºblica, etc). Ã‰ importante explicitar o objetivo da anÃ¡lise para entender quais as melhores mÃ©tricas e quais as suas limitaÃ§Ãµes.
 
-A discussão será centrada na análise do modelo de crescimento exponencial simples, e se dividirá em duas partes: métricas de avaliação, e fatores de variabilidade.
+A discussÃ£o serÃ¡ centrada na anÃ¡lise do modelo de crescimento exponencial simples, e se dividirÃ¡ em duas partes: mÃ©tricas de avaliaÃ§Ã£o, e fatores de variabilidade.
 
-Este documento não será submetido a nenhuma revista com revisão por pares, mas será divulgado abertamente para que a comunidade possa corrigí-lo e aumentá-lo. As opiniões contidas nesta primeira versão são do autor, que não fala por nenhuma instituição.
+Este documento nÃ£o serÃ¡ submetido a nenhuma revista com revisÃ£o por pares, mas serÃ¡ divulgado abertamente para que a comunidade possa corrigÃ­-lo e aumentÃ¡-lo. As opiniÃµes contidas nesta primeira versÃ£o sÃ£o do autor, que nÃ£o fala por nenhuma instituiÃ§Ã£o.
 
-\section{Processos dinâmicos e crescimento exponencial}
+\section{Processos dinÃ¢micos e crescimento exponencial}
 
-O processo de contágio e disseminação do vírus através da população é um processo dinâmico (ocorre no tempo) que, por princípio, obedece a uma lei de crescimento exponencial.
+O processo de contÃ¡gio e disseminaÃ§Ã£o do vÃ­rus atravÃ©s da populaÃ§Ã£o Ã© um processo dinÃ¢mico (ocorre no tempo) que, por princÃ­pio, obedece a uma lei de crescimento exponencial.
 
-Isto ocorre por que uma pessoa infectada pode transmitir o vírus a diversas outras pessoas, que por sua vez transmitirão o vírus a outras tantas pessoas. Se um infectado transmitir o vírus a 2 pessoas por dia, e essas 2 a outras 2 pessoas por dia, e assim por diante, em 10 dias serão $1.024$ infectados; em 20 dias, serão $1.048.576$; em 30 dias, mais de $1$ bilhão.
+Isto ocorre por que uma pessoa infectada pode transmitir o vÃ­rus a diversas outras pessoas, que por sua vez transmitirÃ£o o vÃ­rus a outras tantas pessoas. Se um infectado transmitir o vÃ­rus a 2 pessoas por dia, e essas 2 a outras 2 pessoas por dia, e assim por diante, em 10 dias serÃ£o $1.024$ infectados; em 20 dias, serÃ£o $1.048.576$; em 30 dias, mais de $1$ bilhÃ£o.
 
-O tamanho total da epidemia é limitado superiormente pelo tamanho da população (não pode haver mais infectados do que pessoas). A existência deste limite superior garante que eventualmente o processo chegará ao fim; no pior caso, isto ocorrerá quando todos houverem se contaminado e adquirido a imunidade (se existir) ou se contaminado e morrido.
+O tamanho total da epidemia Ã© limitado superiormente pelo tamanho da populaÃ§Ã£o (nÃ£o pode haver mais infectados do que pessoas). A existÃªncia deste limite superior garante que eventualmente o processo chegarÃ¡ ao fim; no pior caso, isto ocorrerÃ¡ quando todos houverem se contaminado e adquirido a imunidade (se existir) ou se contaminado e morrido.
 
-A intensidade da evolução do processo depende da taxa de contágio da doença, que por sua vez pode ser decomposta em dois fatores:
+A intensidade da evoluÃ§Ã£o do processo depende da taxa de contÃ¡gio da doenÃ§a, que por sua vez pode ser decomposta em dois fatores:
 
 \begin{itemize}
-\item {Transmissibilidade}: considerando que um infectado entre em contato com uma pessoa saudável, qual a probabilidade de ocorrer o contágio?
-\item {Exposição}: no tempo entre o contágio e a cura ou morte, quantas pessoas entrarão em contato (direto ou indireto) com o infectado?
+\item {Transmissibilidade}: considerando que um infectado entre em contato com uma pessoa saudÃ¡vel, qual a probabilidade de ocorrer o contÃ¡gio?
+\item {ExposiÃ§Ã£o}: no tempo entre o contÃ¡gio e a cura ou morte, quantas pessoas entrarÃ£o em contato (direto ou indireto) com o infectado?
 \end{itemize}
 
-A transmissibilidade depende principalmente de fatores biológicos: a agressividade do vírus, seu tempo de sobrevida em diferentes condições, seu tempo de incubação, a intensidade dos sintomas, entre outros. Mas pode também depender de fatores culturais; por exemplo, da distância usual que as pessoas de determinada cultura guardam umas das outras ao conversar, hábitos de higiene, etc. 
+A transmissibilidade depende principalmente de fatores biolÃ³gicos: a agressividade do vÃ­rus, seu tempo de sobrevida em diferentes condiÃ§Ãµes, seu tempo de incubaÃ§Ã£o, a intensidade dos sintomas, entre outros. Mas pode tambÃ©m depender de fatores culturais; por exemplo, da distÃ¢ncia usual que as pessoas de determinada cultura guardam umas das outras ao conversar, hÃ¡bitos de higiene, etc. 
 
-A exposição, por outro lado, depende principalmente de fatores culturais: a conectividade do território e a intensidade da vida social são dois fatores importantes. Mas também depende de fatores biológicos, como por exemplo o tempo até o aparecimento dos sintomas (quanto maior este tempo, mais pessoas entrarão em contato com o infectado).
+A exposiÃ§Ã£o, por outro lado, depende principalmente de fatores culturais: a conectividade do territÃ³rio e a intensidade da vida social sÃ£o dois fatores importantes. Mas tambÃ©m depende de fatores biolÃ³gicos, como por exemplo o tempo atÃ© o aparecimento dos sintomas (quanto maior este tempo, mais pessoas entrarÃ£o em contato com o infectado).
 
-\section{As consequências}
+\section{As consequÃªncias}
 
-A consequência mais severa da contaminação é a morte do doente; conhecer a probabilidade de que um indivíduo doente venha a falecer (a taxa de mortalidade ou letalidade) é portanto essencial para estimar o dano causado pelo processo ao longo de seu curso.
+A consequÃªncia mais severa da contaminaÃ§Ã£o Ã© a morte do doente; conhecer a probabilidade de que um indivÃ­duo doente venha a falecer (a taxa de mortalidade ou letalidade) Ã© portanto essencial para estimar o dano causado pelo processo ao longo de seu curso.
 
-Há, porém, uma série de outras consequências do processo de contágio; no contexto da saúde pública, há o aumento no nível de ocupação das estruturas de saúde (postos, hospitais) e o aumento rápido da demanda por serviços, profissionais e equipamentos de saúde. 
+HÃ¡, porÃ©m, uma sÃ©rie de outras consequÃªncias do processo de contÃ¡gio; no contexto da saÃºde pÃºblica, hÃ¡ o aumento no nÃ­vel de ocupaÃ§Ã£o das estruturas de saÃºde (postos, hospitais) e o aumento rÃ¡pido da demanda por serviÃ§os, profissionais e equipamentos de saÃºde. 
 
-Diversos outros efeitos deste processo podem ser observados, desde efeitos econômicos pela redução na velocidade de produção e consumo, até efeitos sociais pelo estresse causado pela própria pandemia ou pelas medidas de contenção.
+Diversos outros efeitos deste processo podem ser observados, desde efeitos econÃ´micos pela reduÃ§Ã£o na velocidade de produÃ§Ã£o e consumo, atÃ© efeitos sociais pelo estresse causado pela prÃ³pria pandemia ou pelas medidas de contenÃ§Ã£o.
 
 \section{Comparando processos exponenciais}
 
-\subsection{Métricas}
+\subsection{MÃ©tricas}
 
-\subsubsection{Métricas para avaliar a dinâmica de contágio}
+\subsubsection{MÃ©tricas para avaliar a dinÃ¢mica de contÃ¡gio}
 
-Para entender melhor quais métricas são ou não adequadas, vamos analisar as equações de um processo exponencial simples.
+Para entender melhor quais mÃ©tricas sÃ£o ou nÃ£o adequadas, vamos analisar as equaÃ§Ãµes de um processo exponencial simples.
 
-O número de infectados $I_{t+1}$ num dia qualquer $t+1$ depende do número de infectados no dia anterior, $I_t$; no caso do processo exponencial, esta dependência é multiplicativa, ou seja 
+O nÃºmero de infectados $I_{t+1}$ num dia qualquer $t+1$ depende do nÃºmero de infectados no dia anterior, $I_t$; no caso do processo exponencial, esta dependÃªncia Ã© multiplicativa, ou seja 
 
 \begin{equation}
 I_{t+1} = \alpha I_t
 \end{equation}
 
-O valor de $\alpha$ governa o comportamento qualitativo do processo; se $\alpha < 1$, o número de infectados diminui com o tempo e chegará finalmente a $0$ (considerando que $I_t \in \mathbb{N}$). Caso $\alpha > 1$, o número de infectados crescerá sem parar (ainda não estamos considerando o limite do tamanho da população).
+O valor de $\alpha$ governa o comportamento qualitativo do processo; se $\alpha < 1$, o nÃºmero de infectados diminui com o tempo e chegarÃ¡ finalmente a $0$ (considerando que $I_t \in \mathbb{N}$). Caso $\alpha > 1$, o nÃºmero de infectados crescerÃ¡ sem parar (ainda nÃ£o estamos considerando o limite do tamanho da populaÃ§Ã£o).
 
-O processo descrito na equação acima é dito exponencial pela seguinte razão: se soubermos o número de infectados num dia qualquer $I_0$ (por exemplo $I_0 = 1$ na data inicial), podemos calcular o número de infectados no dia $t$ da seguinte maneira:
+O processo descrito na equaÃ§Ã£o acima Ã© dito exponencial pela seguinte razÃ£o: se soubermos o nÃºmero de infectados num dia qualquer $I_0$ (por exemplo $I_0 = 1$ na data inicial), podemos calcular o nÃºmero de infectados no dia $t$ da seguinte maneira:
 
 \begin{equation}\label{eq:1}
 I_t = I_0 \cdot \alpha ^{t}
 \end{equation}
 
-Ou seja, o tempo transcorrido $t$ aparece como expoente na fórmula que dá o número de infectados ao longo do tempo.
+Ou seja, o tempo transcorrido $t$ aparece como expoente na fÃ³rmula que dÃ¡ o nÃºmero de infectados ao longo do tempo.
 
-Nesta equação, o coeficiente principal é a base $\alpha$ da exponenciação. Como vimos acima, seu valor determina qualitativamente o comportamento do processo (havendo uma mudança importante entre $\alpha < 1$ e $\alpha > 1$); mas também determina a dinâmica quantitativamente, pois está relacionado à velocidade de crescimento em cada instante de tempo $t$ (pois em processos exponenciais a velocidade de crescimento não é constante).
+Nesta equaÃ§Ã£o, o coeficiente principal Ã© a base $\alpha$ da exponenciaÃ§Ã£o. Como vimos acima, seu valor determina qualitativamente o comportamento do processo (havendo uma mudanÃ§a importante entre $\alpha < 1$ e $\alpha > 1$); mas tambÃ©m determina a dinÃ¢mica quantitativamente, pois estÃ¡ relacionado Ã  velocidade de crescimento em cada instante de tempo $t$ (pois em processos exponenciais a velocidade de crescimento nÃ£o Ã© constante).
 
-Sendo assim, o valor de $\alpha$ em diferentes países seria uma boa métrica de comparação de acordo com o modelo \ref{eq:1}. 
+Sendo assim, o valor de $\alpha$ em diferentes paÃ­ses seria uma boa mÃ©trica de comparaÃ§Ã£o de acordo com o modelo \ref{eq:1}. 
 
-Uma estatística comum para avaliar $\alpha$ indiretamente é o \textit{doubling time}, ou tempo para dobrar. Esta estatística é dada em unidades de tempo e representa o tempo estimado para que o número de infectados dobre. Usando a equação \ref{eq:1}, queremos encontrar $k$ tal que $I_{t+k} = 2I_t$; assim
+Uma estatÃ­stica comum para avaliar $\alpha$ indiretamente Ã© o \textit{doubling time}, ou tempo para dobrar. Esta estatÃ­stica Ã© dada em unidades de tempo e representa o tempo estimado para que o nÃºmero de infectados dobre. Usando a equaÃ§Ã£o \ref{eq:1}, queremos encontrar $k$ tal que $I_{t+k} = 2I_t$; assim
 
 \begin{align*}
 & I_{t+k} = I_0 \alpha^{t+k} = 2I_t = 2I_0 \alpha^{t} \\
@@ -92,85 +92,85 @@ Uma estatística comum para avaliar $\alpha$ indiretamente é o \textit{doubling t
 & \iff k = \frac{log(2)}{log(\alpha)} = log_\alpha 2
 \end{align*}
 
-Há portanto uma relação direta entre o tempo para dobrar e o valor de $\alpha$; o tempo para dobrar, por ser mais interpretável, é uma alternativa de estatística para a comparação de processos exponenciais.
+HÃ¡ portanto uma relaÃ§Ã£o direta entre o tempo para dobrar e o valor de $\alpha$; o tempo para dobrar, por ser mais interpretÃ¡vel, Ã© uma alternativa de estatÃ­stica para a comparaÃ§Ã£o de processos exponenciais.
 
-Outra possibilidade é a comparação de estimativas diretas de $\alpha$; estas estimativas podem ser obtidas de diferentes maneiras, e envolvem de modo geral o ajuste do modelo \ref{eq:1} aos dados do número de infectados no tempo.
+Outra possibilidade Ã© a comparaÃ§Ã£o de estimativas diretas de $\alpha$; estas estimativas podem ser obtidas de diferentes maneiras, e envolvem de modo geral o ajuste do modelo \ref{eq:1} aos dados do nÃºmero de infectados no tempo.
 
-Por outro lado, o modelo \ref{eq:1} não descreve bem a evolução de uma pandemia concreta; segundo este modelo, se $\alpha > 1$ a pandemia crescerá indefinidamente, o que não é possível pelo tamanho finito da população. O mais correto, portanto, é aumentar este modelo e torná-lo mais preciso.
+Por outro lado, o modelo \ref{eq:1} nÃ£o descreve bem a evoluÃ§Ã£o de uma pandemia concreta; segundo este modelo, se $\alpha > 1$ a pandemia crescerÃ¡ indefinidamente, o que nÃ£o Ã© possÃ­vel pelo tamanho finito da populaÃ§Ã£o. O mais correto, portanto, Ã© aumentar este modelo e tornÃ¡-lo mais preciso.
 
-Em epidemiologia isto costuma ser feito através de modelos compartimentados do tipo \textit{SIR} ou \textit{SEIR}. Estes modelos dividem a população total em subgrupos: \textit{S}uscetíveis, \textit{E}xpostos, \textit{I}nfectados e \textit{R}ecuperados (os mortos são contabilizados como recuperados, no sentido de não poderem mais se tornar vetores da doença), e consideram que o tamanho $N$ da população total é fixo e dado por $N = S + E + I + R$\footnote{Há outros modelos compartimentados que fazem divisões mais detalhadas, mas a discussão de toda esta classe de modelos vai além do escopo deste texto.}. Estes modelos incluem diversos outros parâmetros além de $\alpha$ e $I_0$ para descrever a dinâmica temporal entre os grupos (suscetíveis se tornam expostos com uma certa velocidade, expostos tornam-se infectados com uma certa probabilidade, e infectados recuperam-se após um certo tempo), e os valores estimados destes parâmetros podem ser usados como métricas de avaliação e acompanhamento.
+Em epidemiologia isto costuma ser feito atravÃ©s de modelos compartimentados do tipo \textit{SIR} ou \textit{SEIR}. Estes modelos dividem a populaÃ§Ã£o total em subgrupos: \textit{S}uscetÃ­veis, \textit{E}xpostos, \textit{I}nfectados e \textit{R}ecuperados (os mortos sÃ£o contabilizados como recuperados, no sentido de nÃ£o poderem mais se tornar vetores da doenÃ§a), e consideram que o tamanho $N$ da populaÃ§Ã£o total Ã© fixo e dado por $N = S + E + I + R$\footnote{HÃ¡ outros modelos compartimentados que fazem divisÃµes mais detalhadas, mas a discussÃ£o de toda esta classe de modelos vai alÃ©m do escopo deste texto.}. Estes modelos incluem diversos outros parÃ¢metros alÃ©m de $\alpha$ e $I_0$ para descrever a dinÃ¢mica temporal entre os grupos (suscetÃ­veis se tornam expostos com uma certa velocidade, expostos tornam-se infectados com uma certa probabilidade, e infectados recuperam-se apÃ³s um certo tempo), e os valores estimados destes parÃ¢metros podem ser usados como mÃ©tricas de avaliaÃ§Ã£o e acompanhamento.
 
-Algumas métricas são inaceitáveis. Por exemplo, o número de novos casos ou de mortes em um período de tempo não é uma informação suficiente, pois dois países com números iguais de novos casos podem estar vivendo realidades muito diferentes. $100$ casos a mais num país com $1000$ casos atualmente confirmados representa um contexto bem diferente de $100$ casos a mais num país com $10$ casos atualmente confirmados.
+Algumas mÃ©tricas sÃ£o inaceitÃ¡veis. Por exemplo, o nÃºmero de novos casos ou de mortes em um perÃ­odo de tempo nÃ£o Ã© uma informaÃ§Ã£o suficiente, pois dois paÃ­ses com nÃºmeros iguais de novos casos podem estar vivendo realidades muito diferentes. $100$ casos a mais num paÃ­s com $1000$ casos atualmente confirmados representa um contexto bem diferente de $100$ casos a mais num paÃ­s com $10$ casos atualmente confirmados.
 
-A métrica mais simples aceitável é o fator de crescimento $I_{t+1} / I_t$, que representa uma estimativa do valor de $\alpha$ (assumindo sem perda de generalidade que $I_0 = 1$) no modelo \ref{eq:1}. Este valor, conforme varia no tempo, agrega as consequências de todas as outras dinâmicas presentes no modelo mais completo. Por exemplo, no momento em que for detectada uma diminuição importante nos valores diários estimados desta taxa, poderemos acreditar que o processo se aproxima do fim, e / ou que as medidas preventivas estão surtindo efeito.
+A mÃ©trica mais simples aceitÃ¡vel Ã© o fator de crescimento $I_{t+1} / I_t$, que representa uma estimativa do valor de $\alpha$ (assumindo sem perda de generalidade que $I_0 = 1$) no modelo \ref{eq:1}. Este valor, conforme varia no tempo, agrega as consequÃªncias de todas as outras dinÃ¢micas presentes no modelo mais completo. Por exemplo, no momento em que for detectada uma diminuiÃ§Ã£o importante nos valores diÃ¡rios estimados desta taxa, poderemos acreditar que o processo se aproxima do fim, e / ou que as medidas preventivas estÃ£o surtindo efeito.
 
-Métricas mais complexas exigem um esforço computacional que nem sempre estará à disposição dos interessados em acompanhar a situação. Quando possível, porém, devem ser preferidas, desde que o modelo utilizado na sua estimação seja claramente exposto.
+MÃ©tricas mais complexas exigem um esforÃ§o computacional que nem sempre estarÃ¡ Ã  disposiÃ§Ã£o dos interessados em acompanhar a situaÃ§Ã£o. Quando possÃ­vel, porÃ©m, devem ser preferidas, desde que o modelo utilizado na sua estimaÃ§Ã£o seja claramente exposto.
 
-É importante ressaltar, porém, que toda métrica calculada a partir do número de casos está necessariamente sujeita à incerteza, pois o processo de rastreamento, testagem e contabilização de casos está sujeito a falhas e imprecisões.
+Ã‰ importante ressaltar, porÃ©m, que toda mÃ©trica calculada a partir do nÃºmero de casos estÃ¡ necessariamente sujeita Ã  incerteza, pois o processo de rastreamento, testagem e contabilizaÃ§Ã£o de casos estÃ¡ sujeito a falhas e imprecisÃµes.
 
-\subsubsection{Métricas para avaliar consequências da pandemia}
+\subsubsection{MÃ©tricas para avaliar consequÃªncias da pandemia}
 
-As consequências da pandemia estão relacionadas principalmente ao número de mortes e à intensidade dos sintomas (que indicarão a necessidade de UTI, respiradores e outros equipamentos). 
+As consequÃªncias da pandemia estÃ£o relacionadas principalmente ao nÃºmero de mortes e Ã  intensidade dos sintomas (que indicarÃ£o a necessidade de UTI, respiradores e outros equipamentos). 
 
-Para projetar o número de mortes, a estatística mais comum é a taxa de letalidade, que pode ser definida de duas formas: a proporção de mortos no \textit{total da população}, e a proporção de mortos no \textit{total de infectados}.
+Para projetar o nÃºmero de mortes, a estatÃ­stica mais comum Ã© a taxa de letalidade, que pode ser definida de duas formas: a proporÃ§Ã£o de mortos no \textit{total da populaÃ§Ã£o}, e a proporÃ§Ã£o de mortos no \textit{total de infectados}.
 
-O processo de contágio e disseminação de um vírus é um processo essencialmente local, pois a transmissão ocorre pelo contato direto ou indireto. Sendo assim, a taxa de letalidade pelo total de infectados pode ser mais informativa, já que mede mais diretamente o poder destrutivo do vírus. Por outro lado, esta métrica é mais incerta, pois o cálculo do número de infectados está sujeito a incertezas por si só. O mais importante na avaliação desta taxa é garantir a consistência (todas as taxas comparadas devem ser calculadas no mesmo critério), e a exposição clara para o leitor de qual taxa está sendo usada, e porquê.
+O processo de contÃ¡gio e disseminaÃ§Ã£o de um vÃ­rus Ã© um processo essencialmente local, pois a transmissÃ£o ocorre pelo contato direto ou indireto. Sendo assim, a taxa de letalidade pelo total de infectados pode ser mais informativa, jÃ¡ que mede mais diretamente o poder destrutivo do vÃ­rus. Por outro lado, esta mÃ©trica Ã© mais incerta, pois o cÃ¡lculo do nÃºmero de infectados estÃ¡ sujeito a incertezas por si sÃ³. O mais importante na avaliaÃ§Ã£o desta taxa Ã© garantir a consistÃªncia (todas as taxas comparadas devem ser calculadas no mesmo critÃ©rio), e a exposiÃ§Ã£o clara para o leitor de qual taxa estÃ¡ sendo usada, e porquÃª.
 
-Quanto à intensidade dos sintomas, não parece razoável definir uma única métrica ou utilizar um único número para sua avaliação. Muitas métricas podem ser propostas: tempo até aparecimento do primeiro sintoma, probabilidade do paciente precisar de cuidados hospitalares, probabilidade de necessidade de UTI, tempo esperado de internação, entre outros. Todas essas métricas serão potencialmente influenciadas por características de cada paciente, como idade, estado de saúde, etc. Sendo assim, é preciso cuidado na comparação destas métricas.
+Quanto Ã  intensidade dos sintomas, nÃ£o parece razoÃ¡vel definir uma Ãºnica mÃ©trica ou utilizar um Ãºnico nÃºmero para sua avaliaÃ§Ã£o. Muitas mÃ©tricas podem ser propostas: tempo atÃ© aparecimento do primeiro sintoma, probabilidade do paciente precisar de cuidados hospitalares, probabilidade de necessidade de UTI, tempo esperado de internaÃ§Ã£o, entre outros. Todas essas mÃ©tricas serÃ£o potencialmente influenciadas por caracterÃ­sticas de cada paciente, como idade, estado de saÃºde, etc. Sendo assim, Ã© preciso cuidado na comparaÃ§Ã£o destas mÃ©tricas.
 
-A análise das consequências econômicas ou sociais da pandemia ou das medidas de prevenção está além do escopo desta primeira versão do relatório.
+A anÃ¡lise das consequÃªncias econÃ´micas ou sociais da pandemia ou das medidas de prevenÃ§Ã£o estÃ¡ alÃ©m do escopo desta primeira versÃ£o do relatÃ³rio.
 
 \subsection{Fatores de variabilidade}
 
-No momento atual, a maioria dos países do mundo já apresenta casos positivos do SARS-CoV-1. O vírus que afeta cada um dos países é essencialmente o mesmo; há motivos para crer, portanto que os fatores biológicos envolvidos na evolução e consequências da pandemia serão constantes ao redor do planeta.
+No momento atual, a maioria dos paÃ­ses do mundo jÃ¡ apresenta casos positivos do SARS-CoV-1. O vÃ­rus que afeta cada um dos paÃ­ses Ã© essencialmente o mesmo; hÃ¡ motivos para crer, portanto que os fatores biolÃ³gicos envolvidos na evoluÃ§Ã£o e consequÃªncias da pandemia serÃ£o constantes ao redor do planeta.
 
-Por outro lado, a diversidade cultural e de infraestrutura econômica garante que cada país terá um processo diferente dos demais, em maior ou menor grau.
+Por outro lado, a diversidade cultural e de infraestrutura econÃ´mica garante que cada paÃ­s terÃ¡ um processo diferente dos demais, em maior ou menor grau.
 
-Para comparar a evolução da pandemia e suas consequências entre diferentes países é preciso levar em conta suas diferenças; mas é preciso também saber onde essas diferenças podem ser ignoradas, onde podem ser incorporadas na análise para tornar a comparação mais precisa, e onde elas impedem completamente uma comparação honesta. 
+Para comparar a evoluÃ§Ã£o da pandemia e suas consequÃªncias entre diferentes paÃ­ses Ã© preciso levar em conta suas diferenÃ§as; mas Ã© preciso tambÃ©m saber onde essas diferenÃ§as podem ser ignoradas, onde podem ser incorporadas na anÃ¡lise para tornar a comparaÃ§Ã£o mais precisa, e onde elas impedem completamente uma comparaÃ§Ã£o honesta. 
 
-Listo abaixo alguns fatores, sem pretensão de esgotá-los todos.
+Listo abaixo alguns fatores, sem pretensÃ£o de esgotÃ¡-los todos.
 
-\subsubsection{Data de início}
+\subsubsection{Data de inÃ­cio}
 
-A data de início do processo de contágio pode ser definida de diversas maneiras: pela data em que o primeiro infectado entrou no território, pela data em que apresentou os primeiros sintomas, pela data em que a presença da doença foi confirmada por teste clínico.
+A data de inÃ­cio do processo de contÃ¡gio pode ser definida de diversas maneiras: pela data em que o primeiro infectado entrou no territÃ³rio, pela data em que apresentou os primeiros sintomas, pela data em que a presenÃ§a da doenÃ§a foi confirmada por teste clÃ­nico.
 
-Seja qual for a definição escolhida, para avaliar a situação de países diferentes é preciso considerar o estágio do processo em que cada país se encontra. Em outras palavras, comparar qualquer métrica entre dois países na mesma data não é correto.
+Seja qual for a definiÃ§Ã£o escolhida, para avaliar a situaÃ§Ã£o de paÃ­ses diferentes Ã© preciso considerar o estÃ¡gio do processo em que cada paÃ­s se encontra. Em outras palavras, comparar qualquer mÃ©trica entre dois paÃ­ses na mesma data nÃ£o Ã© correto.
 
-Esta diferença, porém, pode ser eliminada da análise caso se considere a evolução do processo tomando como $t=0$ a data de início. Em outras palavras, o tempo deve ser medido não pela data do calendário, mas pelo tempo transcorrido desde o início do processo. 
+Esta diferenÃ§a, porÃ©m, pode ser eliminada da anÃ¡lise caso se considere a evoluÃ§Ã£o do processo tomando como $t=0$ a data de inÃ­cio. Em outras palavras, o tempo deve ser medido nÃ£o pela data do calendÃ¡rio, mas pelo tempo transcorrido desde o inÃ­cio do processo. 
 
-Há diversas imprecisões envolvidas na determinação desta data inicial, o que torna a comparação entre países uma tarefa mais difícil e sujeita ao erro e à incerteza. Como aproximação razoável, porém, cabe utilizar a normalização do tempo conforme descrito acima.
+HÃ¡ diversas imprecisÃµes envolvidas na determinaÃ§Ã£o desta data inicial, o que torna a comparaÃ§Ã£o entre paÃ­ses uma tarefa mais difÃ­cil e sujeita ao erro e Ã  incerteza. Como aproximaÃ§Ã£o razoÃ¡vel, porÃ©m, cabe utilizar a normalizaÃ§Ã£o do tempo conforme descrito acima.
 
-\subsubsection{Tamanho da população}
+\subsubsection{Tamanho da populaÃ§Ã£o}
 
-O tamanho total da população serve como limitante superior do número total de infectados. Sendo assim, e considerando que o processo de contágio é local (ou seja, o vírus é transmitido apenas pelo contato direto ou indireto), a diferença no tamanho total da população é pouco relevante, principalmente no início da pandemia. Neste início são muito mais relevantes a conectividade entre os cidadãos e suas relações sociais, que tem efeito local.
+O tamanho total da populaÃ§Ã£o serve como limitante superior do nÃºmero total de infectados. Sendo assim, e considerando que o processo de contÃ¡gio Ã© local (ou seja, o vÃ­rus Ã© transmitido apenas pelo contato direto ou indireto), a diferenÃ§a no tamanho total da populaÃ§Ã£o Ã© pouco relevante, principalmente no inÃ­cio da pandemia. Neste inÃ­cio sÃ£o muito mais relevantes a conectividade entre os cidadÃ£os e suas relaÃ§Ãµes sociais, que tem efeito local.
 
-Há alguns artigos propondo a utilização do número de casos por milhão de habitantes ou métricas semelhantes. Na minha opinião esta proposta não está correta, a menos que se queira medir o tamanho do impacto da pandemia na estrutura do país. Para comparar diferentes processos ao longo do tempo, a métrica mais importante é a taxa de variação diária, que não depende do tamanho da população.
+HÃ¡ alguns artigos propondo a utilizaÃ§Ã£o do nÃºmero de casos por milhÃ£o de habitantes ou mÃ©tricas semelhantes. Na minha opiniÃ£o esta proposta nÃ£o estÃ¡ correta, a menos que se queira medir o tamanho do impacto da pandemia na estrutura do paÃ­s. Para comparar diferentes processos ao longo do tempo, a mÃ©trica mais importante Ã© a taxa de variaÃ§Ã£o diÃ¡ria, que nÃ£o depende do tamanho da populaÃ§Ã£o.
 
-\subsubsection{Pirâmide etária}
+\subsubsection{PirÃ¢mide etÃ¡ria}
 
-Uma vez que os efeitos da infecção pelo SARS-CoV-1 dependem criticamente do estado de saúde e da idade do paciente, a estrutura etária da população é um fator importante. É preciso considerar, porém, como e de que modo essa estrutura influencia a análise.
+Uma vez que os efeitos da infecÃ§Ã£o pelo SARS-CoV-1 dependem criticamente do estado de saÃºde e da idade do paciente, a estrutura etÃ¡ria da populaÃ§Ã£o Ã© um fator importante. Ã‰ preciso considerar, porÃ©m, como e de que modo essa estrutura influencia a anÃ¡lise.
 
-Na análise do processo de contágio e sua velocidade, a estrutura etária é importante à medida que a idade do paciente interfira \textit{a)} no tempo até o aparecimento dos sintomas e \textit{b)} na intensidade da convivência social do infectado. Portanto, ao se comparar diferentes países quanto à evolução do processo de contágio, é importante considerar se as diferenças nas pirâmides etárias podem ter influência muito grande nestes dois fatores. 
+Na anÃ¡lise do processo de contÃ¡gio e sua velocidade, a estrutura etÃ¡ria Ã© importante Ã  medida que a idade do paciente interfira \textit{a)} no tempo atÃ© o aparecimento dos sintomas e \textit{b)} na intensidade da convivÃªncia social do infectado. Portanto, ao se comparar diferentes paÃ­ses quanto Ã  evoluÃ§Ã£o do processo de contÃ¡gio, Ã© importante considerar se as diferenÃ§as nas pirÃ¢mides etÃ¡rias podem ter influÃªncia muito grande nestes dois fatores. 
 
-Na análise das consequências do processo, a estrutura etária é importante à medida que vai influenciar \textit{a)} o número de mortos, e \textit{b)} a carga sobre o sistema de saúde. Sendo assim, não se pode comparar diretamente países com estruturas etárias muito diferentes no que diz respeito ao impacto da pandemia na saúde pública.
+Na anÃ¡lise das consequÃªncias do processo, a estrutura etÃ¡ria Ã© importante Ã  medida que vai influenciar \textit{a)} o nÃºmero de mortos, e \textit{b)} a carga sobre o sistema de saÃºde. Sendo assim, nÃ£o se pode comparar diretamente paÃ­ses com estruturas etÃ¡rias muito diferentes no que diz respeito ao impacto da pandemia na saÃºde pÃºblica.
 
-É possível mitigar os efeitos da diferença nas pirâmides etárias utilizando-se indicadores adequados; por exemplo, pode-se observar o número de mortos ou infectados entre a população de uma determinada faixa etária, ou pode-se proceder a diversos tipos de normalização. A abordagem formalmente mais correta seria incluir esta informação no modelo utilizado para descrever o processo. O modo adequado de fazer isso depende do tipo de modelo.
+Ã‰ possÃ­vel mitigar os efeitos da diferenÃ§a nas pirÃ¢mides etÃ¡rias utilizando-se indicadores adequados; por exemplo, pode-se observar o nÃºmero de mortos ou infectados entre a populaÃ§Ã£o de uma determinada faixa etÃ¡ria, ou pode-se proceder a diversos tipos de normalizaÃ§Ã£o. A abordagem formalmente mais correta seria incluir esta informaÃ§Ã£o no modelo utilizado para descrever o processo. O modo adequado de fazer isso depende do tipo de modelo.
 
-\subsubsection{Estrutura e organização social}
+\subsubsection{Estrutura e organizaÃ§Ã£o social}
 
-A estrutura e organização social de um país podem ser decisivas na determinação da evolução e consequências de um processo pandêmico. A disponibilidade de recursos e equipamentos de saúde, a capacidade de mobilizar novos recursos rapidamente, a capacidade de comunicação do governo e a competência na implantação de políticas de contenção são alguns fatores que se mostram potencialmente influentes.
+A estrutura e organizaÃ§Ã£o social de um paÃ­s podem ser decisivas na determinaÃ§Ã£o da evoluÃ§Ã£o e consequÃªncias de um processo pandÃªmico. A disponibilidade de recursos e equipamentos de saÃºde, a capacidade de mobilizar novos recursos rapidamente, a capacidade de comunicaÃ§Ã£o do governo e a competÃªncia na implantaÃ§Ã£o de polÃ­ticas de contenÃ§Ã£o sÃ£o alguns fatores que se mostram potencialmente influentes.
 
-Comparar países com estruturas ou organizações sociais muito diferentes (Alemanha e Brasil, por exemplo, ou Brasil e China) é um procedimento complexo. É preciso considerar o peso relativo das semelhanças (o fato de ser o mesmo vírus, e outras que pode haver) e diferenças entre os países para avaliar criticamente a qualidade de uma comparação deste tipo.
+Comparar paÃ­ses com estruturas ou organizaÃ§Ãµes sociais muito diferentes (Alemanha e Brasil, por exemplo, ou Brasil e China) Ã© um procedimento complexo. Ã‰ preciso considerar o peso relativo das semelhanÃ§as (o fato de ser o mesmo vÃ­rus, e outras que pode haver) e diferenÃ§as entre os paÃ­ses para avaliar criticamente a qualidade de uma comparaÃ§Ã£o deste tipo.
 
-Novamente, é possível em tese mitigar os efeitos dessa diferença usando as ferramentas adequadas de análise. Estas ferramentas, porém, exigirão maior tempo de análise e processamento, e em situações normais os resultados assim obtidos devem passar pelo crivo da revisão por pares antes de ir à público.
+Novamente, Ã© possÃ­vel em tese mitigar os efeitos dessa diferenÃ§a usando as ferramentas adequadas de anÃ¡lise. Estas ferramentas, porÃ©m, exigirÃ£o maior tempo de anÃ¡lise e processamento, e em situaÃ§Ãµes normais os resultados assim obtidos devem passar pelo crivo da revisÃ£o por pares antes de ir Ã  pÃºblico.
 
-\subsection{Conclusão}
+\subsection{ConclusÃ£o}
 
-O objetivo deste texto era abrir a discussão sobre métricas adequadas ao acompanhamento da evolução da pandemia do SARS-CoV-1, e sobre os fatores de variabilidade que permitem ou impedem a comparação entre países. Pretende-se que esta discussão esteja acessível a um público o mais vasto possível. Infelizmente, não é possível eliminar completamente os detalhes técnicos e matemáticos sem sacrificar por demais a exatidão e a clareza lógica.
+O objetivo deste texto era abrir a discussÃ£o sobre mÃ©tricas adequadas ao acompanhamento da evoluÃ§Ã£o da pandemia do SARS-CoV-1, e sobre os fatores de variabilidade que permitem ou impedem a comparaÃ§Ã£o entre paÃ­ses. Pretende-se que esta discussÃ£o esteja acessÃ­vel a um pÃºblico o mais vasto possÃ­vel. Infelizmente, nÃ£o Ã© possÃ­vel eliminar completamente os detalhes tÃ©cnicos e matemÃ¡ticos sem sacrificar por demais a exatidÃ£o e a clareza lÃ³gica.
 
-De forma resumida, esta primeira versão propõe que a métrica mais adequada para acompanhamento da dinâmica é a taxa de crescimento diário do número de casos confirmados, $I_{t+1} / I_{t}$. A taxa de crescimento diário do número de mortes é também uma métrica adequada, que pode estar sujeita a menos fontes de erro do que a determinação do número de contaminados.
+De forma resumida, esta primeira versÃ£o propÃµe que a mÃ©trica mais adequada para acompanhamento da dinÃ¢mica Ã© a taxa de crescimento diÃ¡rio do nÃºmero de casos confirmados, $I_{t+1} / I_{t}$. A taxa de crescimento diÃ¡rio do nÃºmero de mortes Ã© tambÃ©m uma mÃ©trica adequada, que pode estar sujeita a menos fontes de erro do que a determinaÃ§Ã£o do nÃºmero de contaminados.
 
-Para avaliação das consequências da pandemia, é essencial considerar a diferença de infraestrutura dos países; a diferença entre as datas de início podem ser eliminadas por um processo de normalização, e diferenças na pirâmide etária são importantes mas podem a princípio ter seu efeito de confundimento mitigado. O tamanho total das populações não impede as comparações, principalmente no início da pandemia e se consideramos que o processo de contágio é local.
+Para avaliaÃ§Ã£o das consequÃªncias da pandemia, Ã© essencial considerar a diferenÃ§a de infraestrutura dos paÃ­ses; a diferenÃ§a entre as datas de inÃ­cio podem ser eliminadas por um processo de normalizaÃ§Ã£o, e diferenÃ§as na pirÃ¢mide etÃ¡ria sÃ£o importantes mas podem a princÃ­pio ter seu efeito de confundimento mitigado. O tamanho total das populaÃ§Ãµes nÃ£o impede as comparaÃ§Ãµes, principalmente no inÃ­cio da pandemia e se consideramos que o processo de contÃ¡gio Ã© local.
 
 \bibliography{bibliografia}
 \bibliographystyle{apalike}
