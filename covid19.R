@@ -116,8 +116,39 @@ for(i in 1:length(paises)) {
       geom_vline(xintercept = data.label$quarentine[1], color = 'blue', lty = 'dashed')
   }
   ggsave(paste0('dead_', pais, '.png'))
+  
+  # Crescimento casos x crescimento mortes
+  dftemp = corona_global %>% filter(country == pais) %>% ungroup() %>%select(c(elapsed, growth, growthd)) %>% 
+    pivot_longer(-elapsed, names_to = 'type', values_to = 'rate') %>%
+    mutate(type = recode(type, growth = 'Casos', growthd = 'Mortes'))
+  
+  g = ggplot(data = dftemp, aes(x = elapsed, y = rate, colour = type))
+  g + geom_line(lty = 4) +
+    geom_point() +
+    geom_line(lty = 2) +
+    guides(col=guide_legend(title="")) +
+    xlab("Dias desde o primeiro caso") +
+    ylab("Taxa de crescimento") + 
+    ggtitle(paste0(data.label$pais, ' - taxa de crescimento diário'))
+  ggsave(paste0('both_', pais, '.png'))
+  
 }
 
-pais = 'United Kingdom'
+pais = 'Brazil'
 corona_global %>% filter(country == pais) %>% View()
 
+
+pais = 'Spain'
+# Crescimento casos x crescimento mortes
+dftemp = corona_global %>% filter(country == pais) %>% ungroup() %>%select(c(elapsed, growth, growthd)) %>% 
+  pivot_longer(-elapsed, names_to = 'type', values_to = 'rate') %>%
+  mutate(type = recode(type, growth = 'Casos', growthd = 'Mortes'))
+
+g = ggplot(data = dftemp, aes(x = elapsed, y = rate, colour = type))
+g + geom_line(lty = 4) +
+  geom_point() +
+  geom_line(lty = 2) +
+  guides(col=guide_legend(title="")) +
+  xlab("Dias desde o primeiro caso") +
+  ylab("Taxa de crescimento") + 
+  ggtitle(paste0(data.label$pais, ' - taxa de crescimento diário'))
